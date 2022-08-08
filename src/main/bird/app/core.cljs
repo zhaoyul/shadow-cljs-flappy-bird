@@ -4,8 +4,6 @@
             [clojure.core.async :refer
              [go go-loop <! chan sliding-buffer put! close! timeout]]))
 
-
-
 (defn floor [x] (.floor js/Math x))
 
 (defn translate [start-pos vel time]
@@ -175,10 +173,9 @@
   (let [{:keys [score cur-time jump-count
                 timer-running border-pos
                 flappy-y pillar-list]} @flap-state]
-    [:div {:class "board"
-           :onMouseDown (fn [e]
-                          (swap! flap-state jump)
-                          (.preventDefault e))}
+    [:div#board {:onMouseDown (fn [e]
+                                (swap! flap-state jump)
+                                (.preventDefault e))}
      [:h1 {:class "score"} score]
      (if-not timer-running
        [:a {:class "start-button"
@@ -190,17 +187,6 @@
             :style {:top (px flappy-y)}}]
      [:div {:class "scrolling-border"
             :style { :background-position-x (px border-pos)}}]]))
-
-
-;; (let [node (.getElementById js/document "board-area")]
-;;   (defn renderer [full-state]
-;;     (.render js/ReactDOM (main-template full-state) node)))
-
-;; (add-watch flap-state :renderer (fn [_ _ _ n]
-;;                                   (renderer (world n))))
-
-;; (reset! flap-state @flap-state)
-
 
 (defn app []
   [main-template ])

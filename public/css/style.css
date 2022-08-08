@@ -4,7 +4,7 @@ body {
    background-color: rgb(32,35,50);
 }
 
-#board-area {
+#root {
     position: relative;
     width: 480px;
     height: 640px;
